@@ -1,14 +1,8 @@
 node {
 
-    stage('Build') {
-        echo "Building..."
-    }
+node {
+    checkout scm
 
-    stage('Test') {
-        echo "Testing..."
-    }
+    def customImage = docker.build("bjethwan/hello-app:${env.BUILD_ID}")
 
-    stage('Deploy') {
-        echo "Deploying..."
-    }
 }
