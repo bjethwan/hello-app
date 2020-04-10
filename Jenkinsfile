@@ -8,7 +8,7 @@ node {
       customImage.push()
     }
 
-    def response = httpRequest 'http://localhost:8080/jenkins/api/json?pretty=true'
+    def response = httpRequest 'https://httpbin.org/get'
     println("Status: "+response.status)
     println("Content: "+response.content)
 
