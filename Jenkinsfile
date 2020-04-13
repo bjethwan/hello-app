@@ -8,7 +8,7 @@ node {
     def isProjectPresentOnRegistry = false
     def customImage = docker.build(project +"/hello-app:${env.BUILD_ID}")
    
-    def response = httpRequest authentication: 'harbor_credentials', httpMode: 'HEAD', ignoreSslErrors: true, url: 'https://harbor.bj-cloud.xyz/api/projects?project_name='+project
+    def response = httpRequest authentication: 'harbor_credentials', httpMode: 'HEAD', ignoreSslErrors: true, validResponseCodes: '100:499', url: 'https://harbor.bj-cloud.xyz/api/projects?project_name='+project
     println("Status: "+response.status)
     println("Content: "+response.content)
     
