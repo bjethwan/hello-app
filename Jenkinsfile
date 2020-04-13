@@ -67,7 +67,7 @@ def hello(String name = 'human') {
     echo "Hello, ${name}."
 }
 
-def createRequiredProject(String projectName){
+def createRequiredProject(String projectName=''){
     def response =
         httpRequest(
                 authentication: 'harbor_credentials',
