@@ -17,7 +17,7 @@ node {
       isProjectPresentOnRegistry = true
     }else{
       isProjectPresentOnRegistry = false
-      httpRequest 
+      httpRequest(
 	acceptType: 'APPLICATION_JSON', 
 	authentication: 'harbor_credentials', 
 	consoleLogResponseBody: true, 
@@ -41,6 +41,7 @@ node {
 	responseHandle: 'NONE', 
 	url: 'https://harbor.bj-cloud.xyz/api/projects', 
 	validResponseCodes: '100:499'
+      )
     }
 
     println(isProjectPresentOnRegistry)
