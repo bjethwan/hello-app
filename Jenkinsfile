@@ -45,8 +45,8 @@ node {
     }
 
     println(isProjectPresentOnRegistry)
- 
-    printMessage("Going to start pushing the image")
+    call()
+    call("Going to start pushing the image")
 
     docker.withRegistry('https://harbor.bj-cloud.xyz', 'harbor_credentials') {
        customImage.push()
@@ -54,6 +54,8 @@ node {
  }
 }
 
-def printMessage(messaage){
-   println(${message})
+def call(String name = 'human') {
+    echo "Hello, ${name}."
 }
+
+
