@@ -43,7 +43,7 @@ def createRequiredProject(String projectName=''){
         ignoreSslErrors: true,
         requestBody: '''
         {
-                "project_name": "''' +project+'''",
+                "project_name": "''' +project_name+'''",
                 "count_limit": -1,
                 "storage_limit": -1,
                 "metadata": {
