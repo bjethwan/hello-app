@@ -17,19 +17,30 @@ node {
       isProjectPresentOnRegistry = true
     }else{
       isProjectPresentOnRegistry = false
-httpRequest acceptType: 'APPLICATION_JSON', authentication: 'harbor_credentials', consoleLogResponseBody: true, contentType: 'APPLICATION_JSON', httpMode: 'POST', ignoreSslErrors: true, requestBody: '''{
-  "project_name": project,
-  "count_limit": -1,
-  "storage_limit": -1,
-  "metadata": {
-    "enable_content_trust": "false",
-    "auto_scan": "true",
-    "severity": "none",
-    "reuse_sys_cve_whitelist": "true",
-    "public": "true",
-    "prevent_vul": "false"
-  }
-}''', responseHandle: 'NONE', url: 'https://harbor.bj-cloud.xyz/api/projects', validResponseCodes: '100:499'
+      httpRequest 
+	acceptType: 'APPLICATION_JSON', 
+	authentication: 'harbor_credentials', 
+	consoleLogResponseBody: true, 
+	contentType: 'APPLICATION_JSON', 
+	httpMode: 'POST', 
+	ignoreSslErrors: true, 
+	requestBody: '
+	{
+  		"project_name": project,
+		"count_limit": -1,
+  		"storage_limit": -1,
+  		"metadata": {
+    			"enable_content_trust": "false",
+    			"auto_scan": "true",
+    			"severity": "none",
+    			"reuse_sys_cve_whitelist": "true",
+    			"public": "true",
+    			"prevent_vul": "false"
+ 		 }
+	}', 
+	responseHandle: 'NONE', 
+	url: 'https://harbor.bj-cloud.xyz/api/projects', 
+	validResponseCodes: '100:499'
     }
 
     println(isProjectPresentOnRegistry)
