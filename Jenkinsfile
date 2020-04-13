@@ -18,7 +18,7 @@ node {
     }else{
       isProjectPresentOnRegistry = false
 httpRequest acceptType: 'APPLICATION_JSON', authentication: 'harbor_credentials', consoleLogResponseBody: true, contentType: 'APPLICATION_JSON', httpMode: 'POST', ignoreSslErrors: true, requestBody: '''{
-  "project_name": ${project},
+  "project_name": project,
   "count_limit": -1,
   "storage_limit": -1,
   "metadata": {
