@@ -74,7 +74,7 @@ def createRequiredProject(String projectName=''){
                 httpMode: 'HEAD',
                 ignoreSslErrors: true,
                 validResponseCodes: '100:499',
-                url: 'https://harbor.bj-cloud.xyz/api/projects?project_name='+${projectName}
+                url: 'https://harbor.bj-cloud.xyz/api/projects?project_name='+projectName
         )
     println("createRequiredProject-->Status: "+response.status)
     println("createRequiredProject-->Content: "+response.content)
