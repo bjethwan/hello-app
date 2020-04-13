@@ -54,10 +54,12 @@ node {
     println(isProjectPresentOnRegistry)
     hello()
     hello("Going to start pushing the image")
+    createRequiredProject(project)
 
     docker.withRegistry('https://harbor.bj-cloud.xyz', 'harbor_credentials') {
        customImage.push()
     }
+
  }
 }
 
@@ -66,5 +68,14 @@ def hello(String name = 'human') {
 }
 
 def createRequiredProject(String projectName){
-
+    def response =
+        httpRequest(
+                authentication: 'harbor_credentials',
+                httpMode: 'HEAD',
+                ignoreSslErrors: true,
+                validResponseCodes: '100:499',
+                url: 'https://harbor.bj-cloud.xyz/api/projects?project_name='+${projectName}
+        )
+    println("createRequiredProject-->Status: "+response.status)
+    println("createRequiredProject-->Content: "+response.content)
 }
