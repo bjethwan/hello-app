@@ -24,7 +24,7 @@ node {
 	contentType: 'APPLICATION_JSON', 
 	httpMode: 'POST', 
 	ignoreSslErrors: true, 
-	requestBody: '
+	requestBody: '''
 	{
   		"project_name": project,
 		"count_limit": -1,
@@ -37,7 +37,7 @@ node {
     			"public": "true",
     			"prevent_vul": "false"
  		 }
-	}', 
+	}''', 
 	responseHandle: 'NONE', 
 	url: 'https://harbor.bj-cloud.xyz/api/projects', 
 	validResponseCodes: '100:499'
