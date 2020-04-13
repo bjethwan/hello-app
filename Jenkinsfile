@@ -7,7 +7,7 @@ node {
     def project = "bjethwan"
     def isProjectPresentOnRegistry = false
     def customImage = docker.build(project +"/hello-app:${env.BUILD_ID}")
-    httpRequest authentication: 'harbor_credentials', httpMode: 'HEAD', ignoreSslErrors: true, responseHandle: 'printMessage("bipin")', url: 'https://harbor.bj-cloud.xyz/api/projects?project_name='+project
+    httpRequest authentication: 'harbor_credentials', httpMode: 'HEAD', ignoreSslErrors: true, responseHandle: 'printMessage', url: 'https://harbor.bj-cloud.xyz/api/projects?project_name='+project
     docker.withRegistry('https://harbor.bj-cloud.xyz', 'harbor_credentials') {
        customImage.push()
     }
@@ -15,6 +15,6 @@ node {
  }
 }
 
-def printMessage(message){
+def printMessage(){
    println(${message})
 }
