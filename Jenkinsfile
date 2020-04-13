@@ -26,7 +26,7 @@ node {
 	ignoreSslErrors: true, 
 	requestBody: '''
 	{
-  		"project_name": project,
+  		"project_name": "notpresent",
 		"count_limit": -1,
   		"storage_limit": -1,
   		"metadata": {
