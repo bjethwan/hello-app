@@ -10,7 +10,7 @@ node {
     
     createRequiredProject(project)
 
-    docker.withRegistry(${params.harbor_endpoint}, 'harbor_credentials') {
+    docker.withRegistry("${params.harbor_endpoint}", 'harbor_credentials') {
        customImage.push()
     }
 
@@ -28,7 +28,7 @@ def createRequiredProject(String projectName=''){
                 httpMode: 'HEAD',
                 ignoreSslErrors: true,
                 validResponseCodes: '100:499',
-                url: '${params.harbor_endpoint}/api/projects?project_name='+projectName
+                url: "${params.harbor_endpoint}/api/projects?project_name="+projectName
         )
     println("createRequiredProject-->Status: "+response.status)
     println("createRequiredProject-->Content: "+response.content)
@@ -56,7 +56,7 @@ def createRequiredProject(String projectName=''){
                  }
         }''',
         responseHandle: 'NONE',
-        url: '${params.harbor_endpoint}/api/projects',
+        url: params.harbor_endpoint+'/api/projects',
         validResponseCodes: '100:499'
       )
       println("responseForCreateProject-->Status: "+responseForCreateProject.status)
