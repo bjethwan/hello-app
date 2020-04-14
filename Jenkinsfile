@@ -13,13 +13,9 @@ node {
     //https://issues.jenkins-ci.org/browse/JENKINS-41051
     withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'harbor_credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) 
     {
-			usr = USERNAME
-			pswd = PASSWORD
      
     docker.withRegistry("https://${params.harbor_endpoint}", 'harbor_credentials') {
-       println("${usr}")
-       sh " echo ${usr}"
-       sh "docker login -u ${usr} -p ${pswd} ${params.harbor_endpoint}"
+       sh "docker login -u ${USERNAME} -p ${PASSWORD} ${params.harbor_endpoint}"
        customImage.push()
     }
 }
