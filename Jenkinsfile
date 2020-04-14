@@ -15,11 +15,12 @@ node {
     {
 			usr = USERNAME
 			pswd = PASSWORD
-    } 
+     
     docker.withRegistry("https://${params.harbor_endpoint}", 'harbor_credentials') {
        sh "docker login -u ${usr} -p ${pswd} ${params.harbor_endpoint}"
        customImage.push()
     }
+}
 
  }
 }
