@@ -15,7 +15,7 @@ node {
     {
      
     //docker.withRegistry("https://${params.harbor_endpoint}", 'harbor_credentials') {
-       sh "docker login -u $USERNAME -p $PASSWORD ${params.harbor_endpoint}"
+       //sh "docker login -u $USERNAME -p $PASSWORD ${params.harbor_endpoint}"
        sh "docker push ${params.harbor_endpoint}/" + project + "/hello-app:${env.BUILD_ID}"
     }
 
