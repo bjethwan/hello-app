@@ -10,7 +10,7 @@ node {
     
     createRequiredProject(project)
 
-    docker.withRegistry("${params.harbor_endpoint}", 'harbor_credentials') {
+    docker.withRegistry("https://${params.harbor_endpoint}", 'harbor_credentials') {
        customImage.push()
     }
 
