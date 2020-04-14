@@ -11,13 +11,13 @@ node {
     createRequiredProject(project)
     
     //https://issues.jenkins-ci.org/browse/JENKINS-41051
-    withCredentials([usernamePassword( credentialsId: 'harbor_credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-    
+    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'harbor_credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) 
+    {
 			usr = USERNAME
 			pswd = PASSWORD
-    }
+    } 
     docker.withRegistry("https://${params.harbor_endpoint}", 'harbor_credentials') {
-       sh "docker login -u ${usr} -p ${pswd}"
+       sh "docker login -u ${usr} -p ${pswd} ${params.harbor_endpoint}"
        customImage.push()
     }
 
