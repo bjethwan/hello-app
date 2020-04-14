@@ -6,7 +6,7 @@ node {
  stage('Build'){
     def project = "bjethwan"
 
-    def customImage = docker.build(project +"/hello-app:${env.BUILD_ID}")
+    def customImage = docker.build("${params.harbor_endpoint}"+project +"/hello-app:${env.BUILD_ID}")
     
     createRequiredProject(project)
     
@@ -14,7 +14,7 @@ node {
     withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'harbor_credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) 
     {
      
-    docker.withRegistry("https://${params.harbor_endpoint}", 'harbor_credentials') {
+    //docker.withRegistry("https://${params.harbor_endpoint}", 'harbor_credentials') {
        sh "docker login -u ${USERNAME} -p ${PASSWORD} ${params.harbor_endpoint}"
        customImage.push()
     }
