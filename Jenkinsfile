@@ -4,13 +4,13 @@ node {
  }
 
  stage('Build'){
-    def project = "maybepresent"
+    def project = "bjethwan"
 
     def customImage = docker.build(project +"/hello-app:${env.BUILD_ID}")
     
     createRequiredProject(project)
 
-    docker.withRegistry('https://harbor.bj-cloud.xyz', 'harbor_credentials') {
+    docker.withRegistry(${harbor_endpoint}, 'harbor_credentials') {
        customImage.push()
     }
 
@@ -28,7 +28,7 @@ def createRequiredProject(String projectName=''){
                 httpMode: 'HEAD',
                 ignoreSslErrors: true,
                 validResponseCodes: '100:499',
-                url: 'https://harbor.bj-cloud.xyz/api/projects?project_name='+projectName
+                url: '${harbor_endpoint}/api/projects?project_name='+projectName
         )
     println("createRequiredProject-->Status: "+response.status)
     println("createRequiredProject-->Content: "+response.content)
@@ -56,7 +56,7 @@ def createRequiredProject(String projectName=''){
                  }
         }''',
         responseHandle: 'NONE',
-        url: 'https://harbor.bj-cloud.xyz/api/projects',
+        url: '${harbor_endpoint}/api/projects',
         validResponseCodes: '100:499'
       )
       println("responseForCreateProject-->Status: "+responseForCreateProject.status)
