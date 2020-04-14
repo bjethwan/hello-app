@@ -9,8 +9,11 @@ node {
     def customImage = docker.build(project +"/hello-app:${env.BUILD_ID}")
     
     createRequiredProject(project)
-
+    
+    //https://issues.jenkins-ci.org/browse/JENKINS-41051
+    withCredentials([usernamePassword( credentialsId: 'harbor_credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
     docker.withRegistry("https://${params.harbor_endpoint}", 'harbor_credentials') {
+       sh "docker login -u ${USERNAME} -p ${PASSWORD}"
        customImage.push()
     }
 
