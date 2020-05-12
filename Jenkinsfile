@@ -8,26 +8,14 @@ node {
 
     def customImage = docker.build("${params.harbor_endpoint}/" + project + "/hello-app:${env.BUILD_ID}")
     
-    createRequiredProject(project)
-    
-    //https://issues.jenkins-ci.org/browse/JENKINS-41051
-    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'harbor_credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) 
-    {
-     
-    //docker.withRegistry("https://${params.harbor_endpoint}", 'harbor_credentials') {
-       sh "docker login -u $USERNAME -p $PASSWORD -e bj151v@intl.att.com https://${params.harbor_endpoint}"
-       sh "docker push ${params.harbor_endpoint}/" + project + "/hello-app:${env.BUILD_ID}"
+    createRequiredHarborProject(project)
+  
+    docker.withRegistry("https://${params.harbor_endpoint}", 'harbor_credentials') {
+      customImage.push()
     }
+  }
 
-
- }
-}
-
-def hello(String name = 'human') {
-    echo "Hello, ${name}."
-}
-
-def createRequiredProject(String projectName=''){
+  def createRequiredHarborProject(String projectName=''){
     def response =
         httpRequest(
                 authentication: 'harbor_credentials',
@@ -36,8 +24,6 @@ def createRequiredProject(String projectName=''){
                 validResponseCodes: '100:499',
                 url: "https://${params.harbor_endpoint}/api/projects?project_name="+projectName
         )
-    println("createRequiredProject-->Status: "+response.status)
-    println("createRequiredProject-->Content: "+response.content)
     
     if(response.status == 404){
       def responseForCreateProject = httpRequest(
@@ -65,9 +51,12 @@ def createRequiredProject(String projectName=''){
         url: 'https://'+params.harbor_endpoint+'/api/projects',
         validResponseCodes: '100:499'
       )
-      println("responseForCreateProject-->Status: "+responseForCreateProject.status)
-      println("responseForCreateProject---->Content: "+responseForCreateProject.content)
     } else if(response.status != 200){
       throw new Exception()
-    }   
+  }   
+
+  def hello(String name = 'human') {
+    echo "Hello, ${name}."
+  }
+
 }
