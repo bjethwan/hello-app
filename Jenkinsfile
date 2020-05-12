@@ -13,8 +13,7 @@ node {
     docker.withRegistry("https://${params.harbor_endpoint}", 'harbor_credentials') {
       customImage.push()
     }
-  }
-
+ 
   def createRequiredHarborProject(String projectName=''){
     def response =
         httpRequest(
@@ -59,5 +58,5 @@ node {
   def hello(String name = 'human') {
     echo "Hello, ${name}."
   }
-
+ }
 }
