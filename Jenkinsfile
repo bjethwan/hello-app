@@ -53,6 +53,7 @@ node {
       )
     } else if(response.status != 200){
       throw new Exception()
+    }
   }   
 
   def hello(String name = 'human') {
