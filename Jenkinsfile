@@ -9,9 +9,7 @@ node {
 
     def customImage = docker.build("${params.harbor_endpoint}/" + project + "/hello-app:${env.BUILD_ID}")
     
-    createRequiredHarborProject(project)
-  
-    docker.withRegistry("https://${params.harbor_endpoint}", 'harbor_credentials') {
+    docker.withRegistry("https://${params.harbor_endpoint}") {
       customImage.push()
     }
  }
